@@ -24,6 +24,8 @@ public class TripEntity extends BaseEntity {
     private Integer seats;
     private String special;
 
+    private Integer ownerId;
+
     @OneToMany
     private List<DestinationEntity> destinations;
 

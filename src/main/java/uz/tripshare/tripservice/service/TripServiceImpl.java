@@ -12,10 +12,6 @@ public class TripServiceImpl implements TripService {
 
     private TripRepository tripRepository;
 
-    public TripEntity createTrip(TripRequest tripRequest) {
-        TripEntity tripEntity = mapRequestToEntity(tripRequest);
-        return tripRepository.save(tripEntity);
-    }
 
     @Override
     public TripResponse save(TripRequest request) {
@@ -55,6 +51,12 @@ public class TripServiceImpl implements TripService {
     public List<TripResponse> findAll() {
         List<TripEntity> all = tripRepository.findAll();
         return mapListToResponse(all);
+    }
+
+    @Override
+    public List<TripResponse> findByOwnerId(Integer ownerId) {
+    List<TripEntity> all = tripRepository.findByOwnerId(ownerId);
+    return mapListToResponse(all);
     }
 
     @Override
@@ -99,6 +101,7 @@ public class TripServiceImpl implements TripService {
                 entity.getStatus()
         );
     }
+
     @Override
     public TripEntity mapRequestToEntity(TripRequest request) {
         return new TripEntity(

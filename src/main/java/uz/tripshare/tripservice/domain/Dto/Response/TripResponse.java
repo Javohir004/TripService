@@ -20,7 +20,7 @@ public class TripResponse extends BaseResponse {
     private LocalDate endDate;
     private Integer seats;
     private String special;
-
+    private Integer ownerId;
 
     private List<DestinationEntity> destinations;
 

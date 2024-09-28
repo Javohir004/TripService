@@ -19,7 +19,7 @@ public class TripRequest {
     private LocalDate endDate;
     private Integer seats;
     private String special;
-
+    private Integer ownerId;
 
     private List<DestinationEntity> destinations;
 
