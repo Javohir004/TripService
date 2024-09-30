@@ -10,6 +10,6 @@ import java.util.UUID;
 @FeignClient(name = "CUSTOMER-SERVICE", configuration = FeignConfig.class /*, url = "http://localhost:8081", path = "/api/customer" */)
 public interface CustomerServiceClient {
 
-    @GetMapping("/api/customer/{id}")
+    @GetMapping("/customer/{id}")
     TripResponse findById(@PathVariable("id") UUID id);
 }

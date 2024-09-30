@@ -11,7 +11,7 @@ import uz.tripshare.tripservice.filter.CustomFilter;
 @Configuration
 public class SecurityConfig {
 
-    private final String[] WHITE_LIST = {"/api/trip/swagger-ui/**", "/api/trip/v3/api-docs/**"};
+    private final String[] WHITE_LIST = {"/trip/swagger-ui/**", "/trip/v3/api-docs/**"};
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -20,7 +20,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                                 authorizeRequests
                                         .requestMatchers(WHITE_LIST).permitAll()
-                                        .requestMatchers("/api/trip/**").hasRole("ADMIN")
+                                        .requestMatchers("/trip/**").hasRole("ADMIN")
                                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new CustomFilter(),
