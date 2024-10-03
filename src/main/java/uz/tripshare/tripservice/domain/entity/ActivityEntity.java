@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import uz.tripshare.tripservice.domain.enumerators.Category;
+import uz.tripshare.domain.enumerators.Category;
 
 @Getter
 @Setter
