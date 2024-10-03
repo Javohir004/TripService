@@ -14,6 +14,7 @@ import uz.tripshare.domain.enumerators.Category;
 @NoArgsConstructor
 @Entity(name = "activity")
 public class ActivityEntity extends BaseEntity {
+
     private String name;
     private String description;
     private String location;
