@@ -31,10 +31,6 @@ repositories {
 
 }
 
-
-
-
-
 ext {
     set('springCloudVersion', "2023.0.3")
 }
@@ -55,6 +51,7 @@ dependencies {
     implementation 'uz.tripshare:library:1.2-1'
 
 }
+
 
 dependencyManagement {
     imports {
