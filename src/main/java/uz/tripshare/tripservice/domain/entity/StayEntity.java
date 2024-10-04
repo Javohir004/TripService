@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.*;
-import uz.tripshare.tripservice.domain.enumerators.StayType;
+import uz.tripshare.domain.enumerators.StayType;
 
 
 @AllArgsConstructor

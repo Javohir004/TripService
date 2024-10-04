@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import uz.tripshare.tripservice.domain.enumerators.Category;
+import uz.tripshare.domain.enumerators.Category;
 
 @Getter
 @Setter
@@ -14,6 +14,7 @@ import uz.tripshare.tripservice.domain.enumerators.Category;
 @NoArgsConstructor
 @Entity(name = "activity")
 public class ActivityEntity extends BaseEntity {
+
     private String name;
     private String description;
     private String location;

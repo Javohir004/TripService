@@ -20,7 +20,15 @@ configurations {
 }
 
 repositories {
-    mavenCentral()
+     mavenCentral()
+    maven {
+        url = uri("https://maven.pkg.github.com/axmedovxasanboy/trip-share-lib")
+        credentials {
+            username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+            password = project.findProperty("gpr.token") ?: System.getenv("TOKEN")
+        }
+    }
+
 }
 
 ext {
@@ -40,8 +48,10 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'uz.tripshare:library:1.2-1'
 
 }
+
 
 dependencyManagement {
     imports {

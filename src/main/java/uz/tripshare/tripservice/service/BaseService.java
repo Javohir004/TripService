@@ -1,10 +1,11 @@
 package uz.tripshare.tripservice.service;
+import uz.tripshare.domain.BaseClass;
 import uz.tripshare.tripservice.domain.Dto.Response.BaseResponse;
 import uz.tripshare.tripservice.domain.entity.BaseEntity;
 
 import java.util.List;
 
-public interface BaseService<E extends BaseEntity, Resp extends BaseResponse, Req> {
+public interface BaseService<E extends BaseEntity, Resp extends BaseClass, Req> {
 
     Resp save(Req request);
 

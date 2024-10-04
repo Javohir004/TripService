@@ -2,8 +2,8 @@ package uz.tripshare.tripservice.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import uz.tripshare.tripservice.domain.enumerators.TripStatus;
-import uz.tripshare.tripservice.domain.enumerators.TripType;
+import uz.tripshare.domain.enumerators.TripStatus;
+import uz.tripshare.domain.enumerators.TripType;
 
 
 import java.time.LocalDate;
@@ -39,11 +39,11 @@ public class TripEntity extends BaseEntity {
     @ElementCollection(targetClass = String.class)
     private List<String> exclusions;
 
-    /*@ElementCollection(targetClass = TripType.class)
+    @ElementCollection(targetClass = TripType.class)
     @CollectionTable(name = "trip_types", joinColumns = @JoinColumn(name = "trip_id"))
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
-    private List<TripType> types;*/
+    private List<TripType> types;
 
     @Enumerated(EnumType.STRING)
     private TripStatus status;
