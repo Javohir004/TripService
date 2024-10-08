@@ -22,6 +22,9 @@ bin/
 !**/src/test/**/bin/
 
 
+gpr.user=axmedovxasanboy
+gpr.token=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
+
 
 ### IntelliJ IDEA ###
 .idea
@@ -31,6 +34,8 @@ bin/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+
+
 
 
 ### NetBeans ###

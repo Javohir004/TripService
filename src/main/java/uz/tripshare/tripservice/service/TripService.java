@@ -2,7 +2,6 @@ package uz.tripshare.tripservice.service;
 
 import uz.tripshare.domain.common.Trip;
 import uz.tripshare.tripservice.domain.Dto.Request.TripRequest;
-import uz.tripshare.tripservice.domain.Dto.Response.TripResponse;
 import uz.tripshare.tripservice.domain.entity.TripEntity;
 
 import java.util.List;

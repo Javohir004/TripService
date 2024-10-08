@@ -19,9 +19,10 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequests ->
                                 authorizeRequests
-                                        .requestMatchers(WHITE_LIST).permitAll()
-                                        .requestMatchers("/trip/**").hasRole("ADMIN")
-                                        .anyRequest().authenticated()
+                                        .anyRequest().permitAll()
+//                                        .requestMatchers(WHITE_LIST).permitAll()
+//                                        .requestMatchers("/trip/**").hasRole("ADMIN")
+//                                        .anyRequest().authenticated()
                 )
                 .addFilterBefore(new CustomFilter(),
                         UsernamePasswordAuthenticationFilter.class)

@@ -2,7 +2,6 @@ package uz.tripshare.tripservice.domain.Dto.Response;
 import lombok.*;
 import uz.tripshare.tripservice.domain.entity.DestinationEntity;
 import uz.tripshare.tripservice.domain.entity.StayEntity;
-import uz.tripshare.tripservice.domain.entity.UserEntity;
 import uz.tripshare.tripservice.domain.enumerators.TripStatus;
 import uz.tripshare.tripservice.domain.enumerators.TripType;
 import java.time.LocalDate;

@@ -16,6 +16,7 @@ import java.util.List;
 @Entity(name = "trips")
 @Builder
 public class TripEntity extends BaseEntity {
+
     private String title;
     private String description;
     private LocalDate startDate;
