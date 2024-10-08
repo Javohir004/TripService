@@ -1,6 +1,5 @@
 package uz.tripshare.tripservice.service;
 import uz.tripshare.domain.BaseClass;
-import uz.tripshare.tripservice.domain.Dto.Response.BaseResponse;
 import uz.tripshare.tripservice.domain.entity.BaseEntity;
 
 import java.util.List;

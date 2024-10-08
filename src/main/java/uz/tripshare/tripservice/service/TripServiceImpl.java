@@ -42,7 +42,8 @@ public class TripServiceImpl implements TripService {
         TripEntity tripEntity = tripRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Trip not found with id: " + id));
 
-        return new Trip(tripEntity.getTitle(),
+        return new Trip(
+                tripEntity.getTitle(),
                 tripEntity.getDescription(),
                 tripEntity.getStartDate(),
                 tripEntity.getEndDate(),
@@ -54,8 +55,11 @@ public class TripServiceImpl implements TripService {
                 tripEntity.getInclusions(),
                 tripEntity.getExclusions(),
                 tripEntity.getTypes(),
-                tripEntity.getStatus());
+                tripEntity.getStatus(),
+                null  // Add participants here
+        );
     }
+
 
 
     @Override
@@ -73,7 +77,8 @@ public class TripServiceImpl implements TripService {
     @Override
     public List<Trip> mapListToResponse(List<TripEntity> entities) {
         return entities.stream()
-                .map(tripEntity -> new Trip(tripEntity.getTitle(),
+                .map(tripEntity -> new Trip(
+                        tripEntity.getTitle(),
                         tripEntity.getDescription(),
                         tripEntity.getStartDate(),
                         tripEntity.getEndDate(),
@@ -85,10 +90,12 @@ public class TripServiceImpl implements TripService {
                         tripEntity.getInclusions(),
                         tripEntity.getExclusions(),
                         tripEntity.getTypes(),
-                        tripEntity.getStatus())
+                        tripEntity.getStatus(),
+                        null)  // Add participants here
                 )
                 .collect(Collectors.toList());
     }
+
 
 
     @Override
@@ -98,7 +105,8 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public Trip mapEntityToResponse(TripEntity entity) {
-        return new Trip(entity.getTitle(),
+        return new Trip(
+                entity.getTitle(),
                 entity.getDescription(),
                 entity.getStartDate(),
                 entity.getEndDate(),
@@ -110,8 +118,11 @@ public class TripServiceImpl implements TripService {
                 entity.getInclusions(),
                 entity.getExclusions(),
                 entity.getTypes(),
-                entity.getStatus());
+                entity.getStatus(),
+                null  // Add participants here
+        );
     }
+
 
     private static List<Stay> getStays(List<StayEntity> stays) {
         return stays.stream().map(s -> new Stay(
