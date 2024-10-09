@@ -7,9 +7,9 @@ import uz.tripshare.tripservice.domain.Dto.Response.TripResponse;
 
 import java.util.UUID;
 
-@FeignClient(name = "CUSTOMER-SERVICE", configuration = FeignConfig.class , url = "http://localhost:8081", path = "/api/customer")
+@FeignClient(name = "CUSTOMER-SERVICE", configuration = FeignConfig.class , url = "http://localhost:8081", path = "/api/user")
 public interface CustomerServiceClient {
 
-    @GetMapping("/customer/{id}")
-    TripResponse findById(@PathVariable("id") UUID id);
+    @GetMapping("/{id}")
+    TripResponse findById(@PathVariable("id") Integer id);
 }

@@ -1,11 +1,13 @@
 package uz.tripshare.tripservice.service;
 
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import uz.tripshare.domain.common.Activity;
 import uz.tripshare.domain.common.Destination;
 import uz.tripshare.domain.common.Stay;
 import uz.tripshare.domain.common.Trip;
+import uz.tripshare.tripservice.clients.CustomerServiceClient;
 import uz.tripshare.tripservice.domain.Dto.Request.TripRequest;
 import uz.tripshare.tripservice.domain.entity.DestinationEntity;
 import uz.tripshare.tripservice.domain.entity.StayEntity;
@@ -16,14 +18,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class TripServiceImpl implements TripService {
 
-    private TripRepository tripRepository;
+    private final TripRepository tripRepository;
+    private final CustomerServiceClient customerServiceClient;
 
 
     @Override
     public Trip save(TripRequest request) {
         TripEntity tripEntity = mapRequestToEntity(request);
+        ///
+        customerServiceClient.findById(request.getOwnerId());
         TripEntity save = tripRepository.save(tripEntity);
         return mapEntityToResponse(save);
     }
