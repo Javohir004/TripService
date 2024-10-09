@@ -1,11 +1,14 @@
 package uz.tripshare.tripservice.service.stay;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import uz.tripshare.domain.common.Stay;
 import uz.tripshare.tripservice.domain.Dto.Request.StayRequest;
 import uz.tripshare.tripservice.domain.entity.StayEntity;
 
 import java.util.List;
 
+@Service
 public class StayServiceImpl implements StayService{
     @Override
     public Stay save(StayRequest request) {
@@ -19,6 +22,11 @@ public class StayServiceImpl implements StayService{
 
     @Override
     public Stay findById(Integer id) {
+        return null;
+    }
+
+    @Override
+    public StayEntity findEntityById(Integer id) {
         return null;
     }
 
@@ -47,6 +55,7 @@ public class StayServiceImpl implements StayService{
         return null;
     }
 
+    @Transactional
     public List<StayEntity> mapListToEntity(List<Stay> stays) {
         return stays.stream().map(s-> new StayEntity(
                 s.getName(), s.getReview(), s.getRating(),

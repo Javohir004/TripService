@@ -10,8 +10,8 @@ import java.util.List;
 
 
 @RestController
+@RequestMapping("/api/trip")
 @RequiredArgsConstructor
-@RequestMapping("/trip")
 public class TripController {
 
     private final TripServiceImpl tripService;

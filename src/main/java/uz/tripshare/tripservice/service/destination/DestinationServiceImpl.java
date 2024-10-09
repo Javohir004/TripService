@@ -1,5 +1,8 @@
 package uz.tripshare.tripservice.service.destination;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import uz.tripshare.domain.common.Destination;
 import uz.tripshare.tripservice.domain.Dto.Request.DestinationRequest;
 import uz.tripshare.tripservice.domain.entity.DestinationEntity;
@@ -8,11 +11,11 @@ import uz.tripshare.tripservice.service.activity.ActivityServiceImpl;
 
 import java.util.List;
 
+@Service
+@RequiredArgsConstructor
 public class DestinationServiceImpl implements DestinationService {
 
-    private ActivityServiceImpl activityService;
-
-
+    private final ActivityServiceImpl activityService;
 
     @Override
     public Destination save(DestinationRequest request) {
@@ -26,6 +29,11 @@ public class DestinationServiceImpl implements DestinationService {
 
     @Override
     public Destination findById(Integer id) {
+        return null;
+    }
+
+    @Override
+    public DestinationEntity findEntityById(Integer id) {
         return null;
     }
 
@@ -54,6 +62,7 @@ public class DestinationServiceImpl implements DestinationService {
         return null;
     }
 
+    @Transactional
     public List<DestinationEntity> mapListToEntity(List<Destination> destinations) {
         return destinations.stream().map(d -> new DestinationEntity(
                 d.getDescription(), d.getLocation(), activityService.mapListToEntity(d.getActivities())

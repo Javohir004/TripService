@@ -15,7 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Getter
-@Builder
 public class TripRequest {
     private String title;
     private String description;
