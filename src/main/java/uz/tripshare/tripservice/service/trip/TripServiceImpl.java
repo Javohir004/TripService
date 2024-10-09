@@ -23,7 +23,6 @@ public class TripServiceImpl implements TripService {
 
     private final TripRepository tripRepository;
     private final CustomerServiceClient customerServiceClient;
-    private final TripRepository tripRepository;
     private final DestinationServiceImpl destinationService;
     private final StayServiceImpl stayService;
     private final UserServiceClient userServiceClient;
