@@ -28,7 +28,7 @@ public class TripEntity extends BaseEntity {
 
     private Integer ownerId;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<DestinationEntity> destinations;
 
     @OneToMany

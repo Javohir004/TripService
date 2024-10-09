@@ -1,4 +1,4 @@
-package uz.tripshare.tripservice.service;
+package uz.tripshare.tripservice.service.trip;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
@@ -11,6 +11,9 @@ import uz.tripshare.tripservice.domain.entity.DestinationEntity;
 import uz.tripshare.tripservice.domain.entity.StayEntity;
 import uz.tripshare.tripservice.domain.entity.TripEntity;
 import uz.tripshare.tripservice.repository.TripRepository;
+import uz.tripshare.tripservice.service.destination.DestinationService;
+import uz.tripshare.tripservice.service.destination.DestinationServiceImpl;
+import uz.tripshare.tripservice.service.stay.StayServiceImpl;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,6 +22,8 @@ import java.util.stream.Collectors;
 public class TripServiceImpl implements TripService {
 
     private TripRepository tripRepository;
+    private DestinationServiceImpl destinationService;
+    private StayServiceImpl stayService;
 
 
     @Override
@@ -151,8 +156,8 @@ public class TripServiceImpl implements TripService {
                 .seats(request.getSeats())
                 .special(request.getSpecial())
                 .ownerId(request.getOwnerId())
-                .destinations(request.getDestinations())
-                .stays(request.getStays())
+                .destinations(destinationService.mapListToEntity(request.getDestinations()))
+                .stays(stayService.mapListToEntity(request.getStays()))
                 .inclusions(request.getInclusions())
                 .exclusions(request.getExclusions())
                 .types(request.getTypes())

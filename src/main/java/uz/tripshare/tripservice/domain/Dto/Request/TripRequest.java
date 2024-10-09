@@ -1,5 +1,7 @@
 package uz.tripshare.tripservice.domain.Dto.Request;
 import lombok.*;
+import uz.tripshare.domain.common.Destination;
+import uz.tripshare.domain.common.Stay;
 import uz.tripshare.domain.enumerators.TripStatus;
 import uz.tripshare.domain.enumerators.TripType;
 import uz.tripshare.tripservice.domain.entity.DestinationEntity;
@@ -23,9 +25,9 @@ public class TripRequest {
     private String special;
     private Integer ownerId;
 
-    private List<DestinationEntity> destinations;
+    private List<Destination> destinations;
 
-    private List<StayEntity> stays;
+    private List<Stay> stays;
 
     private List<String> inclusions;
 
