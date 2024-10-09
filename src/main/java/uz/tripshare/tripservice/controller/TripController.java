@@ -4,37 +4,37 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import uz.tripshare.domain.common.Trip;
 import uz.tripshare.tripservice.domain.Dto.Request.TripRequest;
-import uz.tripshare.tripservice.service.TripService;
+import uz.tripshare.tripservice.service.trip.TripServiceImpl;
 
 import java.util.List;
 
 
 @RestController
+@RequestMapping("/api/trip")
 @RequiredArgsConstructor
-@RequestMapping("/trip")
 public class TripController {
 
-    private final TripService tripService;
+    private final TripServiceImpl tripService;
 
-    @PostMapping("/create-trip")
+    @PostMapping("/create")
     public Trip createTrip(@RequestBody TripRequest tripRequest) {
        return tripService.save(tripRequest);
     }
 
 
-    @DeleteMapping("/delete-trip/{tripId}")
+    @DeleteMapping("/delete/{tripId}")
     public void deleteTrip(@PathVariable("tripId") Integer tripId) {
         tripService.delete(tripId);
     }
 
-    @PostMapping("/update-trip/{tripId}")
+    @PostMapping("/edit/{tripId}")
     public Trip updateTrip(@PathVariable("tripId") Integer tripId, @RequestBody TripRequest tripRequest) {
         return tripService.update(tripId, tripRequest);
     }
 
 
-    @GetMapping("/findTripBy-userId")
-    public List<Trip> getTripById(@PathVariable("tripId") Integer ownerId) {
+    @GetMapping("/user-trips/{userId}")
+    public List<Trip> getTripById(@PathVariable("userId") Integer ownerId) {
         return tripService.findByOwnerId(ownerId);
     }
 

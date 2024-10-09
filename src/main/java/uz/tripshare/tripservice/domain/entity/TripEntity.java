@@ -5,7 +5,6 @@ import lombok.*;
 import uz.tripshare.domain.enumerators.TripStatus;
 import uz.tripshare.domain.enumerators.TripType;
 
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -25,13 +24,15 @@ public class TripEntity extends BaseEntity {
     private String special;
 
 
-
     private Integer ownerId;
 
-    @OneToMany
+    @ElementCollection
+    private List<Integer> participants;
+
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<DestinationEntity> destinations;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<StayEntity> stays;
 
     @ElementCollection(targetClass = String.class)

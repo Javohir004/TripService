@@ -1,5 +1,6 @@
 package uz.tripshare.tripservice.domain.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,6 @@ public class DestinationEntity extends BaseEntity {
     private String description;
     private String location;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<ActivityEntity> activities;
 }

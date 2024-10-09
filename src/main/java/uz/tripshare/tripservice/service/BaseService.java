@@ -12,6 +12,8 @@ public interface BaseService<E extends BaseEntity, Resp extends BaseClass, Req> 
 
     Resp findById(Integer id);
 
+    E findEntityById(Integer id);
+
     List<Resp> findAll();
 
     void delete(Integer id);
