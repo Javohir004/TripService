@@ -1,17 +1,13 @@
 package uz.tripshare.tripservice.service.trip;
 
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import uz.tripshare.domain.common.Activity;
-import uz.tripshare.domain.common.Destination;
-import uz.tripshare.domain.common.Stay;
+import org.springframework.transaction.annotation.Transactional;
 import uz.tripshare.domain.common.Trip;
 import uz.tripshare.tripservice.domain.Dto.Request.TripRequest;
-import uz.tripshare.tripservice.domain.entity.DestinationEntity;
-import uz.tripshare.tripservice.domain.entity.StayEntity;
 import uz.tripshare.tripservice.domain.entity.TripEntity;
 import uz.tripshare.tripservice.repository.TripRepository;
-import uz.tripshare.tripservice.service.destination.DestinationService;
 import uz.tripshare.tripservice.service.destination.DestinationServiceImpl;
 import uz.tripshare.tripservice.service.stay.StayServiceImpl;
 
@@ -19,14 +15,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class TripServiceImpl implements TripService {
 
-    private TripRepository tripRepository;
-    private DestinationServiceImpl destinationService;
-    private StayServiceImpl stayService;
+    private final TripRepository tripRepository;
+    private final DestinationServiceImpl destinationService;
+    private final StayServiceImpl stayService;
 
 
     @Override
+    @Transactional
     public Trip save(TripRequest request) {
         TripEntity tripEntity = mapRequestToEntity(request);
         TripEntity save = tripRepository.save(tripEntity);
@@ -55,16 +53,21 @@ public class TripServiceImpl implements TripService {
                 tripEntity.getSeats(),
                 tripEntity.getSpecial(),
                 tripEntity.getOwnerId(),
-                getDestinations(tripEntity.getDestinations()),
-                getStays(tripEntity.getStays()),
+                destinationService.mapListToResponse(tripEntity.getDestinations()),
+                stayService.mapListToResponse(tripEntity.getStays()),
                 tripEntity.getInclusions(),
                 tripEntity.getExclusions(),
                 tripEntity.getTypes(),
                 tripEntity.getStatus(),
-                null  // Add participants here
+                tripEntity.getParticipants()
         );
     }
 
+    @Override
+    public TripEntity findEntityById(Integer id) {
+        return tripRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Trip not found with id: " + id));
+    }
 
 
     @Override
@@ -90,17 +93,16 @@ public class TripServiceImpl implements TripService {
                         tripEntity.getSeats(),
                         tripEntity.getSpecial(),
                         tripEntity.getOwnerId(),
-                        getDestinations(tripEntity.getDestinations()),
-                        getStays(tripEntity.getStays()),
+                        destinationService.mapListToResponse(tripEntity.getDestinations()),
+                        stayService.mapListToResponse(tripEntity.getStays()),
                         tripEntity.getInclusions(),
                         tripEntity.getExclusions(),
                         tripEntity.getTypes(),
                         tripEntity.getStatus(),
-                        null)  // Add participants here
+                        tripEntity.getParticipants())
                 )
                 .collect(Collectors.toList());
     }
-
 
 
     @Override
@@ -110,7 +112,7 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public Trip mapEntityToResponse(TripEntity entity) {
-        return new Trip(
+        Trip trip = new Trip(
                 entity.getTitle(),
                 entity.getDescription(),
                 entity.getStartDate(),
@@ -118,51 +120,32 @@ public class TripServiceImpl implements TripService {
                 entity.getSeats(),
                 entity.getSpecial(),
                 entity.getOwnerId(),
-                getDestinations(entity.getDestinations()),
-                getStays(entity.getStays()),
+                destinationService.mapListToResponse(entity.getDestinations()),
+                stayService.mapListToResponse(entity.getStays()),
                 entity.getInclusions(),
                 entity.getExclusions(),
                 entity.getTypes(),
                 entity.getStatus(),
-                null  // Add participants here
+                entity.getParticipants()
         );
+        trip.setId(entity.getId());
+        trip.setCreatedAt(entity.getCreated());
+        trip.setUpdatedAt(entity.getUpdated());
+        return trip;
     }
-
-
-    private static List<Stay> getStays(List<StayEntity> stays) {
-        return stays.stream().map(s -> new Stay(
-                s.getName(), s.getReview(), s.getRating(), s.getPrice(), s.getRooms(), s.getTravellers(), s.getType()
-        )).toList();
-    }
-
-    private static List<Destination> getDestinations(List<DestinationEntity> destinations) {
-        return destinations.stream().map(d -> new Destination(
-                d.getDescription(), d.getLocation(),
-                d.getActivities().stream().map(a -> new Activity(
-                        a.getName(), a.getDescription(), a.getLocation(), a.getPrice(), a.getCategory()
-                )).toList()
-        )).toList();
-
-    }
-
 
     @Override
     public TripEntity mapRequestToEntity(TripRequest request) {
-        return TripEntity.builder()
-                .title(request.getTitle())
-                .description(request.getDescription())
-                .startDate(request.getStartDate())
-                .endDate(request.getEndDate())
-                .seats(request.getSeats())
-                .special(request.getSpecial())
-                .ownerId(request.getOwnerId())
-                .destinations(destinationService.mapListToEntity(request.getDestinations()))
-                .stays(stayService.mapListToEntity(request.getStays()))
-                .inclusions(request.getInclusions())
-                .exclusions(request.getExclusions())
-                .types(request.getTypes())
-                .status(request.getStatus())
-                .build();
+        return new TripEntity(
+                request.getTitle(), request.getDescription(), request.getStartDate(),
+                request.getEndDate(), request.getSeats(), request.getSpecial(),
+                request.getOwnerId(),
+                null,
+                destinationService.mapListToEntity(request.getDestinations()),
+                stayService.mapListToEntity(request.getStays()),
+                request.getInclusions(), request.getExclusions(),
+                request.getTypes(), request.getStatus()
+        );
     }
 
 

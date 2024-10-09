@@ -1,11 +1,11 @@
 server:
-  port: 3000
+  port: 8090
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/i_am_done
+    url: jdbc:postgresql://localhost:5432/trip_share
     username: postgres
-    password: 2023
+    password: postgres
     driver-class-name: org.postgresql.Driver
 
   jpa:

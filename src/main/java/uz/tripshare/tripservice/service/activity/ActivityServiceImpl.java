@@ -1,11 +1,14 @@
 package uz.tripshare.tripservice.service.activity;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import uz.tripshare.domain.common.Activity;
 import uz.tripshare.tripservice.domain.Dto.Request.ActivityRequest;
 import uz.tripshare.tripservice.domain.entity.ActivityEntity;
 
 import java.util.List;
 
+@Service
 public class ActivityServiceImpl implements ActivityService {
     @Override
     public Activity save(ActivityRequest request) {
@@ -19,6 +22,11 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public Activity findById(Integer id) {
+        return null;
+    }
+
+    @Override
+    public ActivityEntity findEntityById(Integer id) {
         return null;
     }
 
@@ -47,6 +55,7 @@ public class ActivityServiceImpl implements ActivityService {
         return null;
     }
 
+    @Transactional
     public List<ActivityEntity> mapListToEntity(List<Activity> activities) {
         return activities.stream().map(a -> new ActivityEntity(
                 a.getName(), a.getDescription(), a.getLocation(),
