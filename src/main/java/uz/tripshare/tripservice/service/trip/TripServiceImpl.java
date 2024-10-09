@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uz.tripshare.domain.common.Trip;
+import uz.tripshare.tripservice.clients.CustomerServiceClient;
 import uz.tripshare.domain.common.User;
 import uz.tripshare.tripservice.clients.UserServiceClient;
 import uz.tripshare.tripservice.domain.Dto.Request.TripRequest;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 public class TripServiceImpl implements TripService {
 
     private final TripRepository tripRepository;
+    private final CustomerServiceClient customerServiceClient;
     private final DestinationServiceImpl destinationService;
     private final StayServiceImpl stayService;
     private final UserServiceClient userServiceClient;
@@ -30,6 +32,8 @@ public class TripServiceImpl implements TripService {
     @Transactional
     public Trip save(TripRequest request) {
         TripEntity tripEntity = mapRequestToEntity(request);
+        ///
+        customerServiceClient.findById(request.getOwnerId());
         TripEntity save = tripRepository.save(tripEntity);
         return mapEntityToResponse(save);
     }
