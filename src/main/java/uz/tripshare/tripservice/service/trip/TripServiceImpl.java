@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uz.tripshare.domain.common.Trip;
+import uz.tripshare.domain.common.User;
+import uz.tripshare.tripservice.clients.UserServiceClient;
 import uz.tripshare.tripservice.domain.Dto.Request.TripRequest;
 import uz.tripshare.tripservice.domain.entity.TripEntity;
 import uz.tripshare.tripservice.repository.TripRepository;
@@ -21,6 +23,7 @@ public class TripServiceImpl implements TripService {
     private final TripRepository tripRepository;
     private final DestinationServiceImpl destinationService;
     private final StayServiceImpl stayService;
+    private final UserServiceClient userServiceClient;
 
 
     @Override
@@ -136,10 +139,14 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public TripEntity mapRequestToEntity(TripRequest request) {
+        User user = userServiceClient.getUserById(request.getOwnerId());
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
         return new TripEntity(
                 request.getTitle(), request.getDescription(), request.getStartDate(),
                 request.getEndDate(), request.getSeats(), request.getSpecial(),
-                request.getOwnerId(),
+                user.getId(),
                 null,
                 destinationService.mapListToEntity(request.getDestinations()),
                 stayService.mapListToEntity(request.getStays()),
