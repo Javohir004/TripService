@@ -11,4 +11,6 @@ public interface UserServiceClient {
 
     @GetMapping("/{id}")
     User getUserById(@PathVariable("id") Integer id);
+
+
 }

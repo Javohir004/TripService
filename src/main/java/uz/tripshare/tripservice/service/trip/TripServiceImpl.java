@@ -160,4 +160,20 @@ public class TripServiceImpl implements TripService {
     }
 
 
+    public Trip saveParticipants(Integer participantId , Integer tripId) {
+        User user = userServiceClient.getUserById(participantId);
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
+
+        TripEntity byId = tripRepository.findById(tripId)
+                .orElseThrow(() -> new EntityNotFoundException("Trip not found with id: " + tripId));
+
+        byId.getParticipants().add(participantId);
+        tripRepository.save(byId);
+
+        return mapEntityToResponse(byId);
+    }
+
+
 }

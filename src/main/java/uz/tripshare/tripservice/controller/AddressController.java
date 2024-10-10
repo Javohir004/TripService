@@ -18,10 +18,18 @@ public class AddressController {
         return addressService.save(addressRequest);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/update{id}")
     public Address update(@PathVariable("id") Integer id, @RequestBody AddressRequest addressRequest) {
         return addressService.update(id, addressRequest);
+    }
 
+    @GetMapping("/findById{id}")
+    public Address findById(@PathVariable("id") Integer id) {
+        return addressService.findById(id);
+    }
+    @DeleteMapping("/delete{id}")
+    public void delete(@PathVariable("id") Integer id) {
+        addressService.delete(id);
     }
 
 }

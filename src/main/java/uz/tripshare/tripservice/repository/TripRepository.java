@@ -11,4 +11,5 @@ public interface TripRepository extends JpaRepository<TripEntity , Integer> {
 
   List<TripEntity> findByOwnerId(Integer owner);
 
+
 }

@@ -38,8 +38,10 @@ public class TripController {
         return tripService.findByOwnerId(ownerId);
     }
 
-
-
+    @GetMapping("/add-participants/{userId}/{tripId}")
+    public Trip addParticipants(@PathVariable("userId") Integer userId ,@PathVariable("tripId") Integer tripId ) {
+        return tripService.saveParticipants(userId, tripId);
+    }
 
 
 }
