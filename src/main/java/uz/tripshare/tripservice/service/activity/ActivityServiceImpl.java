@@ -4,9 +4,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uz.tripshare.domain.common.Activity;
 import uz.tripshare.tripservice.domain.Dto.Request.ActivityRequest;
-import uz.tripshare.tripservice.domain.entity.ActivityEntity;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ActivityServiceImpl implements ActivityService {
@@ -26,7 +26,7 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public ActivityEntity findEntityById(Integer id) {
+    public Integer findEntityById(Integer id) {
         return null;
     }
 
@@ -41,25 +41,27 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public Activity mapEntityToResponse(ActivityEntity entity) {
+    public Activity mapEntityToResponse(Integer entity) {
         return null;
     }
 
+
     @Override
-    public List<Activity> mapListToResponse(List<ActivityEntity> entities) {
+    public List<Activity> mapListToResponse(List<Integer> entities) {
         return List.of();
     }
 
     @Override
-    public ActivityEntity mapRequestToEntity(ActivityRequest request) {
+    public Integer mapRequestToEntity(ActivityRequest request) {
         return null;
     }
 
     @Transactional
-    public List<ActivityEntity> mapListToEntity(List<Activity> activities) {
-        return activities.stream().map(a -> new ActivityEntity(
-                a.getName(), a.getDescription(), a.getLocation(),
-                a.getPrice(), a.getCategory())
-        ).toList();
+    public List<Integer> mapListToEntity(List<Activity> activities) {
+        return activities.stream().map(a -> {
+                    Integer id = a.getId();
+                    return id;
+                }
+        ).collect(Collectors.toList());
     }
 }

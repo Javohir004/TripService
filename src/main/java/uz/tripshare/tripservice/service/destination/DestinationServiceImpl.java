@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import uz.tripshare.domain.common.Destination;
 import uz.tripshare.tripservice.domain.Dto.Request.DestinationRequest;
 import uz.tripshare.tripservice.domain.entity.DestinationEntity;
-import uz.tripshare.tripservice.service.activity.ActivityService;
 import uz.tripshare.tripservice.service.activity.ActivityServiceImpl;
 
 import java.util.List;

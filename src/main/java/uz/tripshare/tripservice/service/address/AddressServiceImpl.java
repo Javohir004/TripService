@@ -34,7 +34,18 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public Address findById(Integer id) {
-        return null;
+        return addressRepository.findById(id)
+                .map(address -> {
+                    Address response = new Address(
+                            address.getCountry(),
+                            address.getRegion(),
+                            address.getDistrict(),
+                            address.getStreet()
+                    );
+                    response.setId(address.getId());
+                    return response;
+                })
+                .orElseThrow(() -> new EntityNotFoundException("Address not found with ID: "));
     }
 
     @Override
