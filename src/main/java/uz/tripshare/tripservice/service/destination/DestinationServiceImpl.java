@@ -4,17 +4,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uz.tripshare.domain.common.Destination;
+import uz.tripshare.tripservice.clients.ActivityServiceClint;
 import uz.tripshare.tripservice.domain.Dto.Request.DestinationRequest;
 import uz.tripshare.tripservice.domain.entity.DestinationEntity;
-import uz.tripshare.tripservice.service.activity.ActivityServiceImpl;
+import uz.tripshare.tripservice.repository.DestinationRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class DestinationServiceImpl implements DestinationService {
 
-    private final ActivityServiceImpl activityService;
+    private final ActivityServiceClint activityService;
+    private final DestinationRepository destinationRepository;
 
     @Override
     public Destination save(DestinationRequest request) {
@@ -61,10 +64,15 @@ public class DestinationServiceImpl implements DestinationService {
         return null;
     }
 
+
     @Transactional
     public List<DestinationEntity> mapListToEntity(List<Destination> destinations) {
-        return destinations.stream().map(d -> new DestinationEntity(
-                d.getDescription(), d.getLocation(), activityService.mapListToEntity(d.getActivities())
-        )).toList();
+        return destinations.stream().map(d -> {
+            List<Integer> activityIds = activityService.mapListToEntityList(d.getActivities());
+            DestinationEntity destinationEntity = new DestinationEntity(
+                    d.getDescription(), d.getLocation(), activityIds);
+            return destinationRepository.save(destinationEntity);
+        }).collect(Collectors.toList());
     }
 }
+
